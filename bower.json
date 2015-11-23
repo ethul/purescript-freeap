@@ -1,0 +1,8 @@
+{
+  "name": "purescript-freeap",
+  "private": true,
+  "ignore": [
+    "*",
+    "!src/**/*"
+  ]
+}
