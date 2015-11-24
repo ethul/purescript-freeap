@@ -1,8 +1,17 @@
 {
   "name": "purescript-freeap",
-  "private": true,
   "ignore": [
     "*",
     "!src/**/*"
-  ]
+  ],
+  "dependencies": {
+    "purescript-exists": "~0.2.0",
+    "purescript-const": "~0.5.0"
+  },
+  "devDependencies": {
+    "purescript-either": "~0.2.3",
+    "purescript-integers": "~0.2.1",
+    "purescript-generics": "~0.6.2",
+    "purescript-console": "~0.1.1"
+  }
 }
