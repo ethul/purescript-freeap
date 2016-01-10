@@ -3,12 +3,11 @@ module Test.Control.Applicative.Free.Validation
   , runForm
   ) where
 
-import Prelude (Show, (<<<), (==), (<$>), (<*>), (++))
+import Prelude (Show, show, (<<<), (==), (<$>), (<*>), (++))
 
 import Control.Applicative.Free (FreeAp(), foldFreeAp, liftFreeAp)
 
 import Data.Either (Either(..))
-import Data.Generic (Generic, gShow)
 import Data.Int (fromString)
 import Data.Maybe (maybe)
 
@@ -50,6 +49,4 @@ runForm first last age =
          "Age" -> v age
 
 instance showUser :: Show User where
-  show = gShow
-
-derive instance genericUser :: Generic User
+  show (User m) = m.firstName ++ " " ++ m.lastName ++ " " ++ show m.age
