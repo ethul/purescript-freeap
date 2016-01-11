@@ -39,7 +39,10 @@ retractFreeAp (Ap x) = runExists (\(ApF v k') -> apply (retractFreeAp (k' unit))
 -- | the type constructor `f` to the applicative functor `g`.
 foldFreeAp :: forall f g a. (Applicative g) => NaturalTransformation f g -> FreeAp f a -> g a
 foldFreeAp k (Pure a) = pure a
-foldFreeAp k (Ap x) = runExists (\(ApF v k') -> apply (foldFreeAp k (k' unit)) (k (v unit))) x
+foldFreeAp k (Ap x) = runExists (\(ApF v k') ->
+                                   apply (map (\a f -> f a) (k (v unit)))
+                                         (foldFreeAp k (k' unit))
+                                ) x
 
 -- | Natural transformation from `FreeAp f a` to `FreeAp g a` given a
 -- | natural transformation from `f` to `g`.

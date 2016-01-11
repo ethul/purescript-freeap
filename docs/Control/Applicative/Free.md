@@ -10,9 +10,9 @@ The free applicative functor for a type constructor `f`.
 
 ##### Instances
 ``` purescript
-instance functorFreeAp :: Functor (FreeAp f)
-instance applyFreeAp :: Apply (FreeAp f)
-instance applicativeFreeAp :: Applicative (FreeAp f)
+Functor (FreeAp f)
+Apply (FreeAp f)
+Applicative (FreeAp f)
 ```
 
 #### `NaturalTransformation`
