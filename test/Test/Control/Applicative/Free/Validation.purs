@@ -10,6 +10,7 @@ import Control.Applicative.Free (FreeAp(), foldFreeAp, liftFreeAp)
 import Data.Either (Either(..))
 import Data.Int (fromString)
 import Data.Maybe (maybe)
+import Data.Maybe.Unsafe (unsafeThrow)
 
 type Validator a = String -> Either String a
 
@@ -47,6 +48,7 @@ runForm first last age =
          "First name" -> v first
          "Last name" -> v last
          "Age" -> v age
+         _ -> unsafeThrow ("Unexpected field: " ++ n)
 
 instance showUser :: Show User where
   show (User m) = m.firstName ++ " " ++ m.lastName ++ " " ++ show m.age
