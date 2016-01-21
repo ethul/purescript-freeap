@@ -4,6 +4,10 @@
     "*",
     "!src/**/*"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ethul/purescript-freeap.git"
+  },
   "dependencies": {
     "purescript-exists": "~0.2.0",
     "purescript-const": "~0.5.0"
