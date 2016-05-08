@@ -1,5 +1,6 @@
 {
   "name": "purescript-freeap",
+  "license": "MIT",
   "ignore": [
     "*",
     "!src/**/*"
