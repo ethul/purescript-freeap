@@ -1,16 +1,16 @@
 module Test.Control.Applicative.Free.Validation
-  ( User()
+  ( User
   , runForm
   ) where
 
-import Prelude (Show, show, (<<<), (==), (<$>), (<*>), (++))
+import Prelude (class Show, show, (<<<), (==), (<$>), (<*>), (<>))
 
-import Control.Applicative.Free (FreeAp(), foldFreeAp, liftFreeAp)
+import Control.Applicative.Free (FreeAp, foldFreeAp, liftFreeAp)
+import Control.Monad.Eff.Exception.Unsafe (unsafeThrow)
 
 import Data.Either (Either(..))
 import Data.Int (fromString)
 import Data.Maybe (maybe)
-import Data.Maybe.Unsafe (unsafeThrow)
 
 type Validator a = String -> Either String a
 
@@ -22,10 +22,10 @@ field :: forall a. String -> Validator a -> Form a
 field n v = liftFreeAp (Field { name: n, validator: v })
 
 nes :: String -> Form String
-nes n = field n (\v -> if v == "" then Left (n ++ ": Invalid NES") else Right v)
+nes n = field n (\v -> if v == "" then Left (n <> ": Invalid NES") else Right v)
 
 int :: String -> Form Int
-int n = field n (maybe (Left (n ++ ": Invalid Int")) Right <<< fromString)
+int n = field n (maybe (Left (n <> ": Invalid Int")) Right <<< fromString)
 
 newtype User = User { firstName :: String, lastName :: String, age :: Int }
 
@@ -48,7 +48,7 @@ runForm first last age =
          "First name" -> v first
          "Last name" -> v last
          "Age" -> v age
-         _ -> unsafeThrow ("Unexpected field: " ++ n)
+         _ -> unsafeThrow ("Unexpected field: " <> n)
 
 instance showUser :: Show User where
-  show (User m) = m.firstName ++ " " ++ m.lastName ++ " " ++ show m.age
+  show (User m) = m.firstName <> " " <> m.lastName <> " " <> show m.age
