@@ -1,6 +1,5 @@
 module Control.Applicative.Free
-  ( FreeAp()
-  , NaturalTransformation()
+  ( FreeAp
   , liftFreeAp
   , retractFreeAp
   , foldFreeAp
@@ -8,18 +7,16 @@ module Control.Applicative.Free
   , analyzeFreeAp
   ) where
 
-import Prelude (Applicative, Apply, Functor, Unit(), (<<<), apply, flip, id, map, pure, unit)
+import Prelude (class Applicative, class Apply, class Functor, type (~>), Unit, (<<<), apply, flip, id, map, pure, unit)
 
-import Data.Const (Const(..), getConst)
-import Data.Exists (Exists(), mkExists, runExists)
-import Data.Monoid (Monoid)
+import Data.Const (Const(Const), getConst)
+import Data.Exists (Exists, mkExists, runExists)
+import Data.Monoid (class Monoid)
 
 -- | The free applicative functor for a type constructor `f`.
 data FreeAp f a = Pure a | Ap (Exists (ApF f a))
 
 data ApF f a i = ApF (Unit -> f i) (Unit -> FreeAp f (i -> a))
-
-type NaturalTransformation f g = forall a. f a -> g a
 
 ap :: forall f a i. (Unit -> f i) -> (Unit -> FreeAp f (i -> a)) -> FreeAp f a
 ap v k = Ap (mkExists (ApF v k))
@@ -37,13 +34,13 @@ retractFreeAp (Ap x) = runExists (\(ApF v k') -> apply (retractFreeAp (k' unit))
 
 -- | Run a free applicative functor with a natural transformation from
 -- | the type constructor `f` to the applicative functor `g`.
-foldFreeAp :: forall f g a. (Applicative g) => NaturalTransformation f g -> FreeAp f a -> g a
+foldFreeAp :: forall f g a. (Applicative g) => (f ~> g) -> FreeAp f a -> g a
 foldFreeAp k (Pure a) = pure a
 foldFreeAp k (Ap x) = runExists (\(ApF v k') -> apply (map (flip id) (k (v unit))) (foldFreeAp k (k' unit))) x
 
 -- | Natural transformation from `FreeAp f a` to `FreeAp g a` given a
 -- | natural transformation from `f` to `g`.
-hoistFreeAp :: forall f g a. NaturalTransformation f g -> FreeAp f a -> FreeAp g a
+hoistFreeAp :: forall f g a. (f ~> g) -> FreeAp f a -> FreeAp g a
 hoistFreeAp k (Pure a) = Pure a
 hoistFreeAp k (Ap x) = runExists (\(ApF v k') -> ap (\_ -> k (v unit)) (\_ -> hoistFreeAp k (k' unit))) x
 

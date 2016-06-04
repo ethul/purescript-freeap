@@ -2,8 +2,8 @@ module Test.Control.Applicative.Free
   ( checkAnalyze
   ) where
 
-import Prelude (Unit(), (==), (++), unit, apply, map)
-import Control.Applicative.Free (FreeAp(), liftFreeAp, analyzeFreeAp)
+import Prelude (Unit, (==), (<>), unit, apply, map)
+import Control.Applicative.Free (FreeAp, liftFreeAp, analyzeFreeAp)
 import Data.Either (Either(..))
 
 data M r = A r | B r
@@ -28,4 +28,4 @@ expected = "AB"
 checkAnalyze :: Either String String
 checkAnalyze = if result == expected
                then Right result
-               else Left (result ++ " is not " ++ expected)
+               else Left (result <> " is not " <> expected)
