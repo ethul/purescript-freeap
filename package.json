@@ -1,0 +1,8 @@
+{
+  "name": "purescript-freeap",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node -e 'require(\"./output/Test.Main\").main()'"
+  }
+}
