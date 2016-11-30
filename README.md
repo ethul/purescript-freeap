@@ -12,7 +12,3 @@ See the following reference for further information.
 ```
 bower install purescript-freeap
 ```
-
-## Documentation
-
-* [Control.Applicative.Free](docs/Control/Applicative/Free.md)
