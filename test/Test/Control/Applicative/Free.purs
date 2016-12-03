@@ -1,4 +1,5 @@
-module Test.Control.Applicative.Free
+module Test.Control.Applicative.Free where
+{-
   ( checkAnalyze
   ) where
 
@@ -29,3 +30,4 @@ checkAnalyze :: Either String String
 checkAnalyze = if result == expected
                then Right result
                else Left (result <> " is not " <> expected)
+-}

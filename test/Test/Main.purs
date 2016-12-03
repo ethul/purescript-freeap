@@ -2,22 +2,38 @@ module Test.Main where
 
 import Prelude (Unit, bind)
 
+import Data.Either (Either(..))
+
+import Control.Monad.Aff.AVar (AVAR)
 import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log, logShow)
+import Control.Monad.Eff.Console (CONSOLE)
 
 import Test.Control.Applicative.Free.Validation as Validation
 import Test.Control.Applicative.Free as FreeTest
 
-main :: Eff (console :: CONSOLE) Unit
-main = do
-  log "\nvalid case:"
-  logShow (Validation.runForm "Joe" "Smith" "28")
+import Test.Unit (suite, test)
+import Test.Unit.Assert as Assert
+import Test.Unit.Console (TESTOUTPUT)
+import Test.Unit.Main (runTest)
 
-  log "\nempty last name:"
-  logShow (Validation.runForm "Larry" "" "45")
+main :: forall eff.  Eff (avar :: AVAR, console :: CONSOLE, testOutput :: TESTOUTPUT | eff) Unit
+main = runTest do
+  suite "validation" do
+    test "valid input" do
+      Assert.equal (Right (Validation.User { firstName: "Joe", lastName: "Smith", age: 28 }))
+                   (Validation.runForm "Joe" "Smith" "28")
 
-  log "\ninvalid age:"
-  logShow (Validation.runForm "Sue" "Larry" "A")
+    test "empty last name" do
+      Assert.equal (Left "Last name: Invalid NES")
+                   (Validation.runForm "Larry" "" "45")
 
-  log "\nanalyze:"
-  logShow FreeTest.checkAnalyze
+    test "invalid age" do
+      Assert.equal (Left "Age: Invalid Int")
+                   (Validation.runForm "Sue" "Larry" "A")
+
+{-
+  suite "analyze" do
+    test "checkAnalyze" do
+      Assert.equal (Right "AB")
+                   FreeTest.checkAnalyze
+-}
