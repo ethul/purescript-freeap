@@ -61,8 +61,3 @@ instance eqUser :: Eq User where
 
 instance functorField :: Functor Field where
   map k (Field { name, validator }) = Field { name: name, validator: \s -> k <$> validator s }
-
-{--
-instance applyField :: Apply Field where
-  apply (Field { name, validator }) 
---}

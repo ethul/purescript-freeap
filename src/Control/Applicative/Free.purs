@@ -9,13 +9,17 @@ module Control.Applicative.Free
   , liftFreeAp
   , retractFreeAp
   , foldFreeAp
---  , hoistFreeAp
---  , analyzeFreeAp
+  , hoistFreeAp
+  , analyzeFreeAp
   ) where
 
 import Prelude
 
+import Data.Const (Const(..))
 import Data.Functor.Day (type (⊗), day, runDay)
+import Data.Monoid (class Monoid)
+import Data.Newtype (unwrap)
+import Data.Tuple (Tuple(..))
 
 -- | The free applicative functor for a type constructor `f`.
 data FreeAp f a = Pure a | Ap ((f ⊗ FreeAp f) a)
@@ -40,19 +44,21 @@ foldFreeAp k (Ap d) = runDay (\i f g -> pure i <*> k f <*> foldFreeAp k g) d
 
 -- | Natural transformation from `FreeAp f a` to `FreeAp g a` given a
 -- | natural transformation from `f` to `g`.
---hoistFreeAp :: forall f g a. (f ~> g) -> FreeAp f a -> FreeAp g a
+hoistFreeAp :: forall f g a. (f ~> g) -> FreeAp f a -> FreeAp g a
+hoistFreeAp _ (Pure a) = Pure a
+hoistFreeAp k (Ap d) = runDay (\i f g -> Ap (day i (k f) (hoistFreeAp k g))) d
 
 -- | Perform monoidal analysis over the free applicative functor `f`.
---analyzeFreeAp :: forall f m a. Monoid m => (forall b. f b -> m) -> FreeAp f a -> m
+analyzeFreeAp :: forall f m a. Monoid m => (forall b. f b -> m) -> FreeAp f a -> m
+analyzeFreeAp k = unwrap <<< foldFreeAp (Const <<< k)
 
 instance functorFreeAp :: Functor (FreeAp f) where
   map k (Pure a) = Pure (k a)
   map k (Ap d) = Ap (k <$> d)
 
-instance applyFreeAp :: Apply f => Apply (FreeAp f) where
+instance applyFreeAp :: Functor f => Apply (FreeAp f) where
   apply (Pure k) f = k <$> f
-  apply (Ap d) (Pure k) = Ap ((#) k <$> d)
-  apply (Ap d) (Ap e) = Ap (d <*> e)
+  apply (Ap d) e = runDay (\i f g -> Ap (day (\x (Tuple y a) -> i x y a) f (pure Tuple <*> g <*> e))) d
 
-instance applicativeFreeAp :: Applicative f => Applicative (FreeAp f) where
+instance applicativeFreeAp :: Functor f => Applicative (FreeAp f) where
   pure = Pure

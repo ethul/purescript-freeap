@@ -31,9 +31,7 @@ main = runTest do
       Assert.equal (Left "Age: Invalid Int")
                    (Validation.runForm "Sue" "Larry" "A")
 
-{-
   suite "analyze" do
     test "checkAnalyze" do
       Assert.equal (Right "AB")
                    FreeTest.checkAnalyze
--}
