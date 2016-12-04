@@ -3,14 +3,10 @@
 Free applicative functors for PureScript.
 
 See the following reference for further information.
-* [Free Applicative Functors](http://arxiv.org/abs/1403.0749) (Capriotti and Kaposi 2014)
+* [Notions of Computation as Monoids](http://www.fceia.unr.edu.ar/~mauro/pubs/Notions_of_Computation_as_Monoids.pdf) (Rivas and Jaskelioff 2016)
 
 ## Installation
 
 ```
 bower install purescript-freeap
 ```
-
-## Documentation
-
-* [Control.Applicative.Free](docs/Control/Applicative/Free.md)

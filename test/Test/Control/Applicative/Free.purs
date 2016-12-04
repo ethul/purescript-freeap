@@ -2,7 +2,7 @@ module Test.Control.Applicative.Free
   ( checkAnalyze
   ) where
 
-import Prelude (Unit, (==), (<>), unit, apply, map)
+import Prelude
 import Control.Applicative.Free (FreeAp, liftFreeAp, analyzeFreeAp)
 import Data.Either (Either(..))
 

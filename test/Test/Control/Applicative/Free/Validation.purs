@@ -1,9 +1,9 @@
 module Test.Control.Applicative.Free.Validation
-  ( User
+  ( User(..)
   , runForm
   ) where
 
-import Prelude (class Show, show, (<<<), (==), (<$>), (<*>), (<>))
+import Prelude
 
 import Control.Applicative.Free (FreeAp, foldFreeAp, liftFreeAp)
 import Control.Monad.Eff.Exception.Unsafe (unsafeThrow)
@@ -52,3 +52,9 @@ runForm first last age =
 
 instance showUser :: Show User where
   show (User m) = m.firstName <> " " <> m.lastName <> " " <> show m.age
+
+instance eqUser :: Eq User where
+  eq (User m) (User n) =
+    m.firstName == n.firstName &&
+    m.lastName == n.lastName &&
+    m.age == n.age
