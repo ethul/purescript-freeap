@@ -22,7 +22,6 @@ import Data.Const (Const(..))
 import Data.Functor.Day (type (⊗), day, runDay)
 import Data.Monoid (class Monoid)
 import Data.Newtype (unwrap)
-import Data.Tuple (Tuple(..))
 
 -- | The free applicative functor for a type constructor `f`.
 data FreeAp f a = Pure a | Ap ((f ⊗ FreeAp f) a)
@@ -59,11 +58,12 @@ instance functorFreeAp :: Functor (FreeAp f) where
   map k (Pure a) = Pure (k a)
   map k (Ap d) = Ap (k <$> d)
 
-instance applyFreeAp :: Functor f => Apply (FreeAp f) where
-  apply (Pure k) f = k <$> f
-  apply (Ap d) e = runDay (\i f g -> Ap (day (\x (Tuple y a) -> i x y a) f (pure Tuple <*> g <*> e))) d
+instance applyFreeAp :: Apply (FreeAp f) where
+  apply (Pure k) (Pure a) = Pure (k a)
+  apply (Pure k) (Ap d) = Ap (k <$> d)
+  apply (Ap d) e = runDay (\i f g -> Ap (day (#) f (pure (\y a -> (\x -> i x y a)) <*> g <*> e))) d
 
-instance applicativeFreeAp :: Functor f => Applicative (FreeAp f) where
+instance applicativeFreeAp :: Applicative (FreeAp f) where
   pure = Pure
 
 instance extendFreeAp :: Extend f => Extend (FreeAp f) where

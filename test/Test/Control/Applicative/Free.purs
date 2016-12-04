@@ -29,7 +29,3 @@ checkAnalyze :: Either String String
 checkAnalyze = if result == expected
                then Right result
                else Left (result <> " is not " <> expected)
-
-instance functorM :: Functor M where
-  map k (A r) = A (k r)
-  map k (B r) = B (k r)
