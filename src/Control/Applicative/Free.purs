@@ -15,6 +15,9 @@ module Control.Applicative.Free
 
 import Prelude
 
+import Control.Comonad (class Comonad, extract)
+import Control.Extend (class Extend, extend)
+
 import Data.Const (Const(..))
 import Data.Functor.Day (type (⊗), day, runDay)
 import Data.Monoid (class Monoid)
@@ -62,3 +65,11 @@ instance applyFreeAp :: Functor f => Apply (FreeAp f) where
 
 instance applicativeFreeAp :: Functor f => Applicative (FreeAp f) where
   pure = Pure
+
+instance extendFreeAp :: Extend f => Extend (FreeAp f) where
+  extend k w @ (Pure a) = Pure (k w)
+  extend k (Ap d) = Ap (extend (k <<< Ap) d)
+
+instance comonadFreeAp :: Comonad f => Comonad (FreeAp f) where
+  extract (Pure a) = a
+  extract (Ap d) = extract d
