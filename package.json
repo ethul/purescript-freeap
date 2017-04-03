@@ -1,0 +1,14 @@
+{
+  "name": "purescript-freeap",
+  "version": "2.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "psc": "PATH=$PURESCRIPT_0_11_PATH:$PATH psc 'src/**/*.purs' 'test/**/*.purs' 'bower_components/purescript-*/src/**/*.purs' 2>&1",
+    "pscid": "PATH=$PURESCRIPT_0_11_PATH:$PATH pscid",
+    "test": "node -e 'require(\"./output/Test.Main\").main()'"
+  },
+  "devDependencies": {
+    "pscid": "^1.12.1"
+  }
+}
