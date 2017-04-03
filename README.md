@@ -13,4 +13,4 @@ bower install purescript-freeap
 
 ## Documentation
 
-* [Control.Applicative.Free](docs/Control/Applicative/Free.md)
+* Module documentation is [published on Pursuit](https://pursuit.purescript.org/packages/purescript-freeap).
