@@ -1,6 +1,6 @@
 module Test.Main where
 
-import Prelude (Unit, bind)
+import Prelude (Unit, bind, discard)
 
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log, logShow)
