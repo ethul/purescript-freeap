@@ -75,16 +75,19 @@ goApply fStack vals gVal =
     Nil -> Left gVal
     Cons f fs ->
       let gRes = f.func <*> gVal
-      in case vals of
-        Nil -> Left gRes
-        Cons val vals' ->
-          if f.count == 1 then
-            case fs of
-              Nil -> Left gRes
-              _ -> goApply fs vals gRes
-          else Right $ Tuple
-            (Cons { func: unsafeToGFunc gRes, count: f.count - 1 } fs)
-            (NEL.NonEmptyList (val :| vals'))
+      in if f.count == 1 then
+        case fs of
+          Nil ->
+            -- here vals must be empty
+            Left gRes
+          _ -> goApply fs vals gRes
+        else
+          case vals of
+            Nil -> Left gRes
+            Cons val vals' ->
+              Right $ Tuple
+                (Cons { func: unsafeToGFunc gRes, count: f.count - 1 } fs)
+                (NEL.NonEmptyList (val :| vals'))
   where
   unsafeToGFunc :: g Val -> g (Val -> Val)
   unsafeToGFunc = unsafeCoerce
