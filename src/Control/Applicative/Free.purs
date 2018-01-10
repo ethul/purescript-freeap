@@ -7,6 +7,7 @@ module Control.Applicative.Free
   , analyzeFreeAp
   ) where
 
+import Prelude
 import Data.Const (Const(..))
 import Data.Either (Either(..))
 import Data.List (List(..))
@@ -15,8 +16,6 @@ import Data.Monoid (class Monoid)
 import Data.Newtype (unwrap)
 import Data.NonEmpty ((:|))
 import Data.Tuple (Tuple(..))
-import Debug.Trace (spy)
-import Prelude hiding (ap)
 import Unsafe.Coerce (unsafeCoerce)
 
 -- | The free applicative functor for a type constructor `f`.
