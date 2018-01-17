@@ -49,9 +49,8 @@ foldFreeAp nat z =
   unsafeToFVal = unsafeCoerce
 
   go :: Stack f g -> g Val
-  go stck@(Tuple fStack (NEL.NonEmptyList (val :| vals))) =
-    let zzz = stck
-    in case val of
+  go (Tuple fStack (NEL.NonEmptyList (val :| vals))) =
+    case val of
       Pure a -> case goApply fStack vals (pure a) of
         Left x -> x
         Right s -> go s
@@ -139,9 +138,3 @@ instance applyFreeAp :: Apply (FreeAp f) where
 
 instance applicativeFreeAp :: Applicative (FreeAp f) where
   pure = Pure
-
-instance showFreeAp :: Show (FreeAp f a) where
-  show = case _ of
-    Pure a -> "(Pure Val)"
-    Lift f -> "(Lift F)"
-    Ap l r -> "(Ap " <> show l <> " " <> show r <> ")"
