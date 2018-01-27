@@ -1,14 +1,14 @@
 module Test.Main where
 
-import Prelude (Unit, bind, discard)
-
+import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log, logShow)
-
-import Test.Control.Applicative.Free.Validation as Validation
+import Control.Monad.Eff.Exception (EXCEPTION)
+import Control.Monad.Eff.Random (RANDOM)
 import Test.Control.Applicative.Free as FreeTest
+import Test.Control.Applicative.Free.Validation as Validation
 
-main :: Eff (console :: CONSOLE) Unit
+main :: Eff (console ∷ CONSOLE , random ∷ RANDOM , exception ∷ EXCEPTION) Unit
 main = do
   log "\nvalid case:"
   logShow (Validation.runForm "Joe" "Smith" "28")
@@ -21,3 +21,9 @@ main = do
 
   log "\nanalyze:"
   logShow FreeTest.checkAnalyze
+  
+  log "\nstack safety:"
+  logShow FreeTest.checkStack
+  
+  log "\nlaws:"
+  FreeTest.check
