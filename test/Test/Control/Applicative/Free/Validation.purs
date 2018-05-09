@@ -6,7 +6,7 @@ module Test.Control.Applicative.Free.Validation
 import Prelude (class Show, show, (<<<), (==), (<$>), (<*>), (<>))
 
 import Control.Applicative.Free (FreeAp, foldFreeAp, liftFreeAp)
-import Control.Monad.Eff.Exception.Unsafe (unsafeThrow)
+import Effect.Exception.Unsafe (unsafeThrow)
 
 import Data.Either (Either(..))
 import Data.Int (fromString)

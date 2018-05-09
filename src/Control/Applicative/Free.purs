@@ -8,11 +8,11 @@ module Control.Applicative.Free
   ) where
 
 import Prelude
+
 import Data.Const (Const(..))
 import Data.Either (Either(..))
 import Data.List (List(..))
 import Data.List.NonEmpty as NEL
-import Data.Monoid (class Monoid)
 import Data.Newtype (unwrap)
 import Data.NonEmpty ((:|))
 import Data.Tuple (Tuple(..))
@@ -110,7 +110,7 @@ goLeft fStack valStack nat func count = case func of
 -- | Run a free applicative functor using the applicative instance for
 -- | the type constructor `f`.
 retractFreeAp :: forall f a. Applicative f => FreeAp f a -> f a
-retractFreeAp = foldFreeAp id
+retractFreeAp = foldFreeAp identity
 
 -- | Natural transformation from `FreeAp f a` to `FreeAp g a` given a
 -- | natural transformation from `f` to `g`.

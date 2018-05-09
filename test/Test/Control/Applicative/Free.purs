@@ -10,9 +10,10 @@ import Control.Applicative.Free (FreeAp, liftFreeAp, analyzeFreeAp, retractFreeA
 import Control.Applicative.Free.Gen as GenF
 import Data.Either (Either(..))
 import Data.Tuple (Tuple)
+import Effect (Effect)
 import Test.QuickCheck (class Arbitrary, class Coarbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen)
-import Test.QuickCheck.Laws (QC, A, checkLaws)
+import Test.QuickCheck.Laws (A, checkLaws)
 import Test.QuickCheck.Laws.Control as Control
 import Test.QuickCheck.Laws.Data as Data
 import Type.Proxy (Proxy(..), Proxy2(..))
@@ -42,7 +43,7 @@ buildExpected 0 _ acc = acc
 buildExpected n x acc = buildExpected (n - 1) x (acc <> x)
 
 checkAnalyze :: Either String String
-checkAnalyze = 
+checkAnalyze =
   if result == expected
     then Right result
     else Left (result <> " is not " <> expected)
@@ -55,7 +56,7 @@ checkAnalyze =
 
 
 checkStack :: Either String String
-checkStack = 
+checkStack =
   if result == expected
     then Right "safe for 100000 node"
     else Left (result <> " is not " <> expected)
@@ -70,7 +71,7 @@ checkStack =
 newtype ArbFreeAp a = ArbFreeAp (FreeAp (Tuple (Array String)) a)
 
 instance arbitraryArbFreeAp :: (Coarbitrary a, Arbitrary a) => Arbitrary (ArbFreeAp a) where
-  arbitrary = ArbFreeAp <$> 
+  arbitrary = ArbFreeAp <$>
     GenF.genFree
       arbitrary
       (arbitrary :: Gen a)
@@ -83,7 +84,7 @@ derive newtype instance functorArbFreeAp :: Functor ArbFreeAp
 derive newtype instance applyArbFreeAp :: Apply ArbFreeAp
 derive newtype instance applicativeArbFreeAp :: Applicative ArbFreeAp
 
-check ∷ ∀ eff. QC eff Unit
+check ∷ Effect Unit
 check = checkLaws "FreeAp" do
   Data.checkEq prxFree
   Data.checkFunctor prx2Free

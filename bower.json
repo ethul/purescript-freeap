@@ -10,15 +10,14 @@
     "url": "git://github.com/ethul/purescript-freeap.git"
   },
   "dependencies": {
-    "purescript-exists": "^3.0.0",
-    "purescript-const": "^3.0.0"
+    "purescript-exists": "#compiler/0.12",
+    "purescript-const": "#compiler/0.12"
   },
   "devDependencies": {
-    "purescript-either": "^3.0.0",
-    "purescript-integers": "^3.0.0",
-    "purescript-generics": "^4.0.0",
-    "purescript-console": "^3.0.0",
-    "purescript-exceptions": "^3.0.0",
-    "purescript-quickcheck-laws": "^3.0.1"
+    "purescript-either": "#compiler/0.12",
+    "purescript-integers": "#compiler/0.12",
+    "purescript-console": "#compiler/0.12",
+    "purescript-exceptions": "#compiler/0.12",
+    "purescript-quickcheck-laws": "#compiler/0.12"
   }
 }
