@@ -1,14 +1,12 @@
 module Test.Main where
 
 import Prelude
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log, logShow)
-import Control.Monad.Eff.Exception (EXCEPTION)
-import Control.Monad.Eff.Random (RANDOM)
+import Effect (Effect)
+import Effect.Console (log, logShow)
 import Test.Control.Applicative.Free as FreeTest
 import Test.Control.Applicative.Free.Validation as Validation
 
-main :: Eff (console ∷ CONSOLE , random ∷ RANDOM , exception ∷ EXCEPTION) Unit
+main :: Effect Unit
 main = do
   log "\nvalid case:"
   logShow (Validation.runForm "Joe" "Smith" "28")
