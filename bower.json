@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "purescript-exists": "^4.0.0",
-    "purescript-const": "^4.0.0"
+    "purescript-const": "^4.0.0",
+    "purescript-lists": "^5.0.0",
+    "purescript-gen": "^2.0.0"
   },
   "devDependencies": {
     "purescript-either": "^4.0.0",
