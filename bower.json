@@ -20,6 +20,6 @@
     "purescript-integers": "master",
     "purescript-console": "master",
     "purescript-exceptions": "master",
-    "purescript-quickcheck-laws": "thomashoneyman/purescript-quickcheck-laws#master"
+    "purescript-quickcheck-laws": "master"
   }
 }
