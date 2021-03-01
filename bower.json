@@ -20,6 +20,6 @@
   "purescript-integers": "^5.0.0",
   "purescript-console": "^5.0.0",
   "purescript-exceptions": "^5.0.0",
-  "purescript-quickcheck-laws": "^v6.0.0"
+  "purescript-quickcheck-laws": "^6.0.0"
   }
 }
