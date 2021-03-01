@@ -16,10 +16,10 @@
     "purescript-gen": "^3.0.0"
   },
   "devDependencies": {
-  "purescript-either": "^5.0.0",
-  "purescript-integers": "^5.0.0",
-  "purescript-console": "^5.0.0",
-  "purescript-exceptions": "^5.0.0",
-  "purescript-quickcheck-laws": "^6.0.0"
+    "purescript-either": "^5.0.0",
+    "purescript-integers": "^5.0.0",
+    "purescript-console": "^5.0.0",
+    "purescript-exceptions": "^5.0.0",
+    "purescript-quickcheck-laws": "^6.0.0"
   }
 }
