@@ -16,7 +16,7 @@ import Test.QuickCheck.Gen (Gen)
 import Test.QuickCheck.Laws (A, checkLaws)
 import Test.QuickCheck.Laws.Control as Control
 import Test.QuickCheck.Laws.Data as Data
-import Type.Proxy (Proxy(..), Proxy2(..))
+import Type.Proxy (Proxy(..))
 
 
 data M r = A r | B r
@@ -92,4 +92,4 @@ check = checkLaws "FreeAp" do
   Control.checkApplicative prx2Free
   where
   prxFree = Proxy ∷ Proxy (ArbFreeAp A)
-  prx2Free = Proxy2 ∷ Proxy2 ArbFreeAp
+  prx2Free = Proxy ∷ Proxy ArbFreeAp

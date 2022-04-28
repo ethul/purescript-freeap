@@ -1,25 +1,22 @@
 {
   "name": "purescript-freeap",
   "license": "MIT",
-  "ignore": [
-    "*",
-    "!src/**/*"
-  ],
+  "ignore": ["*", "!src/**/*"],
   "repository": {
     "type": "git",
     "url": "https://github.com/ethul/purescript-freeap.git"
   },
   "dependencies": {
-    "purescript-exists": "^5.0.0",
-    "purescript-const": "^5.0.0",
-    "purescript-lists": "^6.0.0",
-    "purescript-gen": "^3.0.0"
+    "purescript-exists": "^6.0.0",
+    "purescript-const": "^6.0.0",
+    "purescript-lists": "^7.0.0",
+    "purescript-gen": "^4.0.0"
   },
   "devDependencies": {
-    "purescript-either": "^5.0.0",
-    "purescript-integers": "^5.0.0",
-    "purescript-console": "^5.0.0",
-    "purescript-exceptions": "^5.0.0",
-    "purescript-quickcheck-laws": "^6.0.0"
+    "purescript-either": "^6.0.0",
+    "purescript-integers": "^6.0.0",
+    "purescript-console": "^6.0.0",
+    "purescript-exceptions": "^6.0.0",
+    "purescript-quickcheck-laws": "^7.0.0"
   }
 }
