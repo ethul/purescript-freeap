@@ -2,12 +2,11 @@
   "private": true,
   "scripts": {
     "clean": "rimraf output && rimraf .pulp-cache && rimraf bench/output && rimraf bench/.pulp-cache",
-    "test": "pulp test",
-    "build": "pulp build -- --censor-lib --strict"
+    "test": "spago test",
+    "build": "spago build"
   },
   "devDependencies": {
-    "pulp": "^16.0.0-1",
-    "purescript-psa": "^0.8.2",
+    "spago": "1.0.5",
     "rimraf": "^3.0.2"
   }
 }

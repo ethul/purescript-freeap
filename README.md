@@ -8,7 +8,7 @@ See the following reference for further information.
 ## Installation
 
 ```
-bower install purescript-freeap
+spago install freeap
 ```
 
 ## Documentation
